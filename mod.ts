@@ -21,12 +21,10 @@ export async function* readline(
     let index;
     while ((index = findIndex(buf, separator)) >= 0) {
       const line = buf.slice(0, index);
-      buf = buf.slice(index + 1);
+      buf = buf.slice(index + separator.length);
       yield line;
     }
   }
 
-  if (buf.length > 0) {
-    yield buf;
-  }
+  yield buf;
 }

@@ -30,3 +30,54 @@ Deno.test({
     ]);
   },
 });
+
+Deno.test({
+  name: "read lines from reader with custom separator",
+  async fn() {
+    const lines = [];
+    for await (const line of readline(await testFileReader(), {
+      separator: new Uint8Array([10, 51, 10]),
+    })) {
+      lines.push(line);
+    }
+
+    assertEquals(lines, [
+      new Uint8Array([49, 10, 50]),
+      new Uint8Array([52, 10, 53, 10, 54]),
+    ]);
+  },
+});
+
+Deno.test({
+  name: "read lines from reader where separator is the first character",
+  async fn() {
+    const lines = [];
+    for await (const line of readline(await testFileReader(), {
+      separator: new Uint8Array([49]),
+    })) {
+      lines.push(line);
+    }
+
+    assertEquals(lines, [
+      new Uint8Array([]),
+      new Uint8Array([10, 50, 10, 51, 10, 52, 10, 53, 10, 54]),
+    ]);
+  },
+});
+
+Deno.test({
+  name: "read lines from reader where separator is the last character",
+  async fn() {
+    const lines = [];
+    for await (const line of readline(await testFileReader(), {
+      separator: new Uint8Array([54]),
+    })) {
+      lines.push(line);
+    }
+
+    assertEquals(lines, [
+      new Uint8Array([49, 10, 50, 10, 51, 10, 52, 10, 53, 10]),
+      new Uint8Array([]),
+    ]);
+  },
+});
