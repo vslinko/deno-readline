@@ -1,1 +1,1 @@
-export { concat, findIndex } from "https://deno.land/std/bytes/mod.ts";
+export { concat, indexOf } from "https://deno.land/std@0.83.0/bytes/mod.ts";
