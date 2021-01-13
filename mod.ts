@@ -1,4 +1,4 @@
-import { concat, findIndex } from "./deps.ts";
+import { concat, indexOf } from "./deps.ts";
 
 export interface ReadlineOptions {
   separator: Uint8Array;
@@ -19,7 +19,7 @@ export async function* readline(
     buf = concat(buf, chunk);
 
     let index;
-    while ((index = findIndex(buf, separator)) >= 0) {
+    while ((index = indexOf(buf, separator)) >= 0) {
       const line = buf.slice(0, index);
       buf = buf.slice(index + separator.length);
       yield line;

@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@0.83.0/testing/asserts.ts";
 import { readline } from "./mod.ts";
 
 async function testFileReader(): Promise<Deno.Reader> {
